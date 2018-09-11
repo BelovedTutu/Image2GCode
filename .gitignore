@@ -2,6 +2,7 @@
 *.pro.user
 moc_*.cpp
 *.gcode
+Image2GCode
 
 # Prerequisites
 *.d

@@ -30,10 +30,10 @@ int main(int argc, char *argv[])
     QString out_file_path;
     QString settings_path;
     const QStringList args = option_parser.optionNames();
-    if (argc < 3) {
+    if (args.size() < 2) {
         fprintf(stderr,"%s\n",qPrintable(QCoreApplication::translate("main","Error: lack of arguments to work with")));
         return -1;
-    } else if (argc < 4) {
+    } else if (args.size() < 3) {
         fprintf(stderr,"%s\n",qPrintable(QCoreApplication::translate("main","Warning: Using default settings")));
     	in_file_path = option_parser.value(input_file);
         out_file_path = option_parser.value(output_file);
