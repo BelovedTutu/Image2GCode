@@ -2,6 +2,7 @@
 #define SETTINGSHANDLER_H
 
 #include <QObject>
+#include <QStringList>
 
 class SettingsHandler : public QObject
 {

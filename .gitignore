@@ -1,5 +1,7 @@
 # Project files
 *.pro.user
+moc_*.cpp
+*.gcode
 
 # Prerequisites
 *.d

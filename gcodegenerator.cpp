@@ -1,5 +1,7 @@
 #include <QFile>
 #include <QTextStream>
+#include <QColor>
+
 #include "gcodegenerator.h"
 
 GCodeGenerator::GCodeGenerator(const QString& in_image_path,\
