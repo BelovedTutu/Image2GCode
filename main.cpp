@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
         fprintf(stderr,"%s\n",qPrintable(QCoreApplication::translate("main","Error: lack of arguments to work with")));
         return -1;
     } else if (argc < 4) {
+        fprintf(stderr,"%s\n",qPrintable(QCoreApplication::translate("main","Warning: Using default settings")));
     	in_file_path = option_parser.value(input_file);
         out_file_path = option_parser.value(output_file);
         settings_path = DEFAULT_SETTINGS;
