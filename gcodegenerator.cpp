@@ -56,6 +56,8 @@ QStringList GCodeGenerator::_GenerateGCodeLineByLine()
     QString cmd;
     cmd = QString(";filter at %1").arg(m_Settings.GetFilterValue(),0,'i',0);
     gCodeOut << cmd;
+    cmd = QString("G1F%1").arg(m_Settings.GetFeedrate(),0,'i',0);
+    gCodeOut << cmd;
     QImage img = m_image;
     img = img.mirrored(false,true);
     qWarning("Dimension are %d x %d",m_image.width(),m_image.height());
@@ -88,6 +90,10 @@ QStringList GCodeGenerator::_GenerateGCodeLineByLine()
     float YSets[3] = {*(m_Settings.GetYSettings()),*(m_Settings.GetYSettings()+1),*(m_Settings.GetYSettings()+2)};
     float ZSets[3] = {*(m_Settings.GetZSettings()),*(m_Settings.GetZSettings()+1),*(m_Settings.GetZSettings()+2)};
     // Quickly move the head to the offset of X and Y
+    float startZVal = ZSets[1];
+    cmd = QString("G1Z%1").arg(startZVal,0,'f',2);
+    gCodeOut << cmd;
+
     cmd = QString("G0X%1Y%2").arg(XSets[2],0,'f',2)
                                .arg(YSets[2],0,'f',2);
     gCodeOut << cmd;

@@ -34,6 +34,8 @@ public:
     void SetEndGCode(const QStringList& end) { EndGCode = end; }
     void SetFeedrate(const double& fr) { feedrate = fr; }
     void SetFilterValue(const double& fv) { filterVal = fv; }
+    void SetBaseThicknessValue(const float& btv) { baseThicknessVal = btv; }
+    void SetMaterialThickness(const float& mt) { MaterialThickness = mt; }
 
     //getters
     int GetMinLaserPwr() const { return minLaserPwr; }
@@ -52,7 +54,8 @@ public:
     QStringList GetEndGCode() const { return EndGCode; }
     double GetFeedrate() const { return feedrate; }
     double GetFilterValue() const { return filterVal; }
-
+    float GetBaseThicknessValue() const { return baseThicknessVal; }
+    float GetMaterialThickness() const { return MaterialThickness; }
     int ImportSettingsFromXml(const QString& in_settings_path);
 signals:
 
@@ -78,6 +81,8 @@ private:
     QStringList EndGCode;
     double feedrate;
     double filterVal;
+    float baseThicknessVal;
+    float MaterialThickness;
 };
 
 #endif // SETTINGSHANDLER_H

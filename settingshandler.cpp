@@ -15,7 +15,8 @@ SettingsHandler::SettingsHandler(QObject *parent) : QObject(parent)
     usingImperialUnit = false; // the machine use imperial unit or not; defautl to false
     ZSettings[0] = 0.0f;ZSettings[1] = 10.0f;ZSettings[2] = 0.0f; // Z min; Z Max and Z Offset
     resol = 0.2f;
-
+    baseThicknessVal = 0.0f;
+    MaterialThickness = 0.0f;
     //GCode Settings
     feedrate = 1500;
     filterVal = 0;
@@ -37,6 +38,8 @@ void SettingsHandler::copy_that(const SettingsHandler& in_handler)
     SetXSettings(in_handler.GetXSettings());
     SetYSettings(in_handler.GetYSettings());
     SetZSettings(in_handler.GetZSettings());
+    SetBaseThicknessValue(in_handler.GetBaseThicknessValue());
+    SetMaterialThickness(in_handler.GetMaterialThickness());
 }
 
 int SettingsHandler::ImportSettingsFromXml(const QString& in_settings_path)
@@ -115,6 +118,12 @@ int SettingsHandler::ImportSettingsFromXml(const QString& in_settings_path)
             }
             else if(node.nodeName() == "usingImperialUnit") {
                 usingImperialUnit = (node.text().toInt() == 1);
+            }
+            else if(node.nodeName() == "BaseThickness") {
+                baseThicknessVal = (node.text().toInt() == 1);
+            }
+            else if(node.nodeName() == "MaterialThickness") {
+                MaterialThickness = (node.text().toInt() == 1);
             }
         }
         inFile->close();

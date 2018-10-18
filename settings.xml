@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Settings>
-    <StartGCode>G0 X0 Y0</StartGCode>
-    <EndGCode>G28</EndGCode>
+    <StartGCode>$H\nM5</StartGCode>
+    <EndGCode>$H</EndGCode>
     <feedrate>1500</feedrate>
     <filterVal>5</filterVal>
     <minLaserPwr>0</minLaserPwr>
@@ -10,7 +10,7 @@
     <LaserOnCmd>M3</LaserOnCmd>
     <LaserOffCmd>M5</LaserOffCmd>
     <EngravingMode>0</EngravingMode>
-    <resol>0.2</resol>
+    <resol>0.3</resol>
     <usingZAxes>1</usingZAxes>
     <usingImperialUnit>0</usingImperialUnit>
     <XMin>0</XMin>
@@ -20,6 +20,8 @@
     <YMax>200</YMax>
     <YOffset>0</YOffset>
     <ZMin>0</ZMin>
-    <ZMax>10</ZMax>
+    <ZMax>40</ZMax>
     <ZOffset>0</ZOffset>
+    <BaseThickness>0</BaseThickness>
+    <MaterialThickness>1.2</MaterialThickness>
 </Settings>
