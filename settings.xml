@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Settings>
-    <StartGCode>$H\nM5</StartGCode>
+    <StartGCode>$H%M5</StartGCode>
     <EndGCode>$H</EndGCode>
     <feedrate>1500</feedrate>
     <filterVal>5</filterVal>
@@ -14,14 +14,15 @@
     <usingZAxes>1</usingZAxes>
     <usingImperialUnit>0</usingImperialUnit>
     <XMin>0</XMin>
-    <XMax>200</XMax>
+    <XMax>1260</XMax>
     <XOffset>0</XOffset>
     <YMin>0</YMin>
-    <YMax>200</YMax>
+    <YMax>1200</YMax>
     <YOffset>0</YOffset>
     <ZMin>0</ZMin>
     <ZMax>40</ZMax>
     <ZOffset>0</ZOffset>
     <BaseThickness>0</BaseThickness>
     <MaterialThickness>1.2</MaterialThickness>
+    <LensFocus>2.8</LensFocus>
 </Settings>

@@ -9,17 +9,18 @@ SettingsHandler::SettingsHandler(QObject *parent) : QObject(parent)
     LaserCmd = 'S'; // the laser power control command in gcode, either S or Z; defualt is S
     LaserOnOffCommand << "M3" << "M5"; // the on \ off command use for the machine, defautl to M3 \ M5
     EngravingMode = e3DREngravingMode::LineByLine;
-    XSettings[0] = 0.0f;XSettings[1] =  200.0f;XSettings[2] =  0.0f; // X min; X Max and X Offset
-    YSettings[0] = 0.0f;YSettings[1] =  200.0f;YSettings[2] =  0.0f; // Y min; Y Max and Y Offset
+    XSettings[0] = 0.0f;XSettings[1] =  1260.0f;XSettings[2] =  0.0f; // X min; X Max and X Offset
+    YSettings[0] = 0.0f;YSettings[1] =  1200.0f;YSettings[2] =  0.0f; // Y min; Y Max and Y Offset
     usingZAxes = true; // the machine using Z axes or not; default to true
     usingImperialUnit = false; // the machine use imperial unit or not; defautl to false
-    ZSettings[0] = 0.0f;ZSettings[1] = 10.0f;ZSettings[2] = 0.0f; // Z min; Z Max and Z Offset
-    resol = 0.2f;
+    ZSettings[0] = 0.0f;ZSettings[1] = 40.0f;ZSettings[2] = 0.0f; // Z min; Z Max and Z Offset
+    resol = 0.3f;
     baseThicknessVal = 0.0f;
     MaterialThickness = 0.0f;
     //GCode Settings
     feedrate = 1500;
     filterVal = 0;
+    LensFocus = 2.0f;
 }
 
 void SettingsHandler::copy_that(const SettingsHandler& in_handler)
@@ -40,6 +41,7 @@ void SettingsHandler::copy_that(const SettingsHandler& in_handler)
     SetZSettings(in_handler.GetZSettings());
     SetBaseThicknessValue(in_handler.GetBaseThicknessValue());
     SetMaterialThickness(in_handler.GetMaterialThickness());
+    SetLensFocus(in_handler.GetLensFocus());
 }
 
 int SettingsHandler::ImportSettingsFromXml(const QString& in_settings_path)
@@ -120,10 +122,13 @@ int SettingsHandler::ImportSettingsFromXml(const QString& in_settings_path)
                 usingImperialUnit = (node.text().toInt() == 1);
             }
             else if(node.nodeName() == "BaseThickness") {
-                baseThicknessVal = (node.text().toInt() == 1);
+                baseThicknessVal = node.text().toFloat();
             }
             else if(node.nodeName() == "MaterialThickness") {
-                MaterialThickness = (node.text().toInt() == 1);
+                MaterialThickness = node.text().toFloat();
+            }
+            else if(node.nodeName() == "LensFocus") {
+                LensFocus = node.text().toFloat();
             }
         }
         inFile->close();

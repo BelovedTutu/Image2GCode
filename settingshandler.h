@@ -36,6 +36,7 @@ public:
     void SetFilterValue(const double& fv) { filterVal = fv; }
     void SetBaseThicknessValue(const float& btv) { baseThicknessVal = btv; }
     void SetMaterialThickness(const float& mt) { MaterialThickness = mt; }
+    void SetLensFocus(const float& lf) { LensFocus = lf; }
 
     //getters
     int GetMinLaserPwr() const { return minLaserPwr; }
@@ -56,6 +57,7 @@ public:
     double GetFilterValue() const { return filterVal; }
     float GetBaseThicknessValue() const { return baseThicknessVal; }
     float GetMaterialThickness() const { return MaterialThickness; }
+    float GetLensFocus() const { return LensFocus; }
     int ImportSettingsFromXml(const QString& in_settings_path);
 signals:
 
@@ -83,6 +85,7 @@ private:
     double filterVal;
     float baseThicknessVal;
     float MaterialThickness;
+    float LensFocus;
 };
 
 #endif // SETTINGSHANDLER_H

@@ -21,7 +21,9 @@ public slots:
 
 private:
     float interpolate(float val, int minRange, int maxRange);
-    QStringList _PrivGenerateGCodeFromImage();
+    QStringList _PrivGenerateGCodeFromImage();\
+    QStringList _PrivPreGenGCode();
+    QStringList _PrivPostGenGCode();
     QStringList _GenerateGCodeLineByLine();
     QStringList _GenerateGCodeTracingEdge();
     SettingsHandler m_Settings;
