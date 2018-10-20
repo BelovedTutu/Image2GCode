@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Settings>
-    <StartGCode>$H%M5</StartGCode>
+    <StartGCode>$H</StartGCode>
     <EndGCode>$H</EndGCode>
     <feedrate>1500</feedrate>
     <filterVal>5</filterVal>
