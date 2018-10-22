@@ -196,9 +196,9 @@ QStringList GCodeGenerator::_GenerateGCodeLineByLine()
                     }
                 }
                 CoordYInMM-=res;
-            } while (CoordYInMM > 0);
+            } while (CoordYInMM - YSets[2] > 0);
             CoordXInMM+=res;
-            CoordYInMM = 0.0f;
+            CoordYInMM = YSets[2];
         }
         if (LaserOn) {
             gCodeOut << m_Settings.GetLaserOnOffCommand().at(1);
