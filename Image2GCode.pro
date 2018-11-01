@@ -1,5 +1,7 @@
 QT += core xml
 
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets svg
+
 CONFIG += c++11
 
 TARGET = Image2GCode
@@ -10,7 +12,16 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     settingshandler.cpp \
-    gcodegenerator.cpp
+    gcodegenerator.cpp \
+    SVGReader/abstracttransform.cpp \
+    SVGReader/arc.cpp \
+    SVGReader/basicpolygon.cpp \
+    SVGReader/circle.cpp \
+    SVGReader/line.cpp \
+    SVGReader/polygon.cpp \
+    SVGReader/qbezier.cpp \
+    SVGReader/svgreader.cpp \
+    SVGReader/transform.cpp \
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -25,4 +36,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \
     settingshandler.h \
-    gcodegenerator.h
+    gcodegenerator.h \
+    SVGReader/abstracttransform.h \
+    SVGReader/arc.h \
+    SVGReader/basicpolygon.h \
+    SVGReader/circle.h \
+    SVGReader/line.h \
+    SVGReader/polygon.h \
+    SVGReader/qbezier.h \
+    SVGReader/svgreader.h \
+    SVGReader/transform.h \

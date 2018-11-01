@@ -1,8 +1,13 @@
 #include <QFile>
 #include <QTextStream>
 #include <QColor>
+#include <QImageWriter>
+#include <QDir>
+#include <QProcess>
+#include <QTemporaryDir>
 
 #include "gcodegenerator.h"
+#include "SVGReader/svgreader.h"
 
 GCodeGenerator::GCodeGenerator(const QString& in_image_path,\
                                const QString& out_path,
@@ -209,5 +214,60 @@ QStringList GCodeGenerator::_GenerateGCodeLineByLine()
 
 QStringList GCodeGenerator::_GenerateGCodeTracingEdge()
 {
-    return QStringList() << ";Currently unsupported";
+    QStringList gCodeOut;
+    gCodeOut << m_Settings.GetLaserOnOffCommand()[1];
+    QString cmd;
+    cmd = QString("%1 %2%3").arg(m_Settings.GetLaserOnOffCommand()[0],m_Settings.GetLaserCmd()).arg(m_Settings.GetMaxLaserPwr());
+    gCodeOut << cmd;
+
+    QByteArray potrace_install_dir = qgetenv("POTRACE_INSTALL_DIR");
+    QString path = !potrace_install_dir.isEmpty() ? QString::fromLatin1(potrace_install_dir) : QDir::currentPath();
+    QString fullPathToSavePPM = QDir::tempPath() + "/R3DExportToppm.bmp";
+    fullPathToSavePPM = QDir::toNativeSeparators(fullPathToSavePPM);
+    QString fullPathToSaveSVG = QDir::tempPath() + "/R3DExportToSVG.svg";
+    fullPathToSaveSVG = QDir::toNativeSeparators(fullPathToSaveSVG);
+
+    QImageWriter writer(fullPathToSavePPM, "bmp");
+    writer.write(m_image);
+    QString program = "";
+    program = path + "/tools/potrace/potrace.exe";
+    program = QDir::toNativeSeparators(program);
+    QStringList arguments;
+    arguments.append(fullPathToSavePPM);
+    arguments.append(QString("--svg"));
+    arguments.append(QString("-o"));
+    arguments.append(fullPathToSaveSVG);
+    //arguments.append(QString("--tight"));
+    arguments.append(QString("--flat"));
+    arguments.append(QString("-u"));
+    arguments.append(QString("1"));
+    /*arguments.append(QString("--color"));
+    arguments.append(QString("#ffffff"));
+    arguments.append(QString("--fillcolor"));
+    arguments.append(QString("#000000"));*/
+    //arguments.append(QString("--opaque"));
+
+    QProcess *myProcess = new QProcess(this);
+    if (!program.isEmpty()) {
+        myProcess->start(program, arguments);
+        myProcess->waitForFinished();
+        svgReader R3DReader;
+        QFile svgout(fullPathToSaveSVG);
+        if(svgout.open(QIODevice::ReadOnly)) {
+            int ret = R3DReader.read(&svgout,m_Settings);
+            if (ret == 0) {
+                gCodeOut << R3DReader.getGCodeGenerated();
+            }
+        }
+        svgout.close();
+        QFile::remove(fullPathToSavePPM);
+        QFile::remove(fullPathToSaveSVG);
+    }
+    else
+    {
+        qErrnoWarning("Fatal Error : Can't find potrace!\n" \
+                          "Please contact our support at \n" \
+                          "www.3draion.com");
+    }
+    return gCodeOut;
 }

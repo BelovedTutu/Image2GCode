@@ -2,20 +2,20 @@
 <Settings>
     <StartGCode>$H</StartGCode>
     <EndGCode>$H</EndGCode>
-    <feedrate>1500</feedrate>
+    <feedrate>1800</feedrate>
     <filterVal>5</filterVal>
     <minLaserPwr>0</minLaserPwr>
     <maxLaserPwr>255</maxLaserPwr>
     <LaserCmd>S</LaserCmd>
     <LaserOnCmd>M3</LaserOnCmd>
     <LaserOffCmd>M5</LaserOffCmd>
-    <EngravingMode>0</EngravingMode>
+    <EngravingMode>1</EngravingMode>
     <resol>0.3</resol>
     <usingZAxes>1</usingZAxes>
     <usingImperialUnit>0</usingImperialUnit>
     <XMin>0</XMin>
     <XMax>1260</XMax>
-    <XOffset>0</XOffset>
+    <XOffset>200</XOffset>
     <YMin>0</YMin>
     <YMax>1200</YMax>
     <YOffset>0</YOffset>
@@ -23,6 +23,6 @@
     <ZMax>40</ZMax>
     <ZOffset>0</ZOffset>
     <BaseThickness>0</BaseThickness>
-    <MaterialThickness>1.2</MaterialThickness>
-    <LensFocus>2.8</LensFocus>
+    <MaterialThickness>2</MaterialThickness>
+    <LensFocus>14</LensFocus>
 </Settings>
