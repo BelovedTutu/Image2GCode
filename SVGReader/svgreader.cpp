@@ -663,7 +663,7 @@ void svgReader::generateGCode(const SettingsHandler& in_handler)
 
     float maxZ = in_handler.GetMaterialThickness() + in_handler.GetLensFocus();
     float curZ = maxZ;
-    bool laserOn = true;
+    //bool laserOn = true;
     while (curZ >= (maxZ - in_handler.GetMaterialThickness()))
     {
         foreach(QLineF *line, lineList)
@@ -673,6 +673,7 @@ void svgReader::generateGCode(const SettingsHandler& in_handler)
             gcode << QString("%1 %2%3").arg(in_handler.GetLaserOnOffCommand()[0]).arg(in_handler.GetLaserCmd()).arg(in_handler.GetMaxLaserPwr());
             gcode << QString("G1 X%1 Y%2 F%3").arg(line->x2() > 0 ? line->x2() : 0,0, 'f', 3).arg(line->y2() > 0 ? line->y2() : 0,0, 'f', 3).arg(in_handler.GetFeedrate(),0,'d',3);
             gcode << QString("%1").arg(in_handler.GetLaserOnOffCommand()[1]);
+            gcode << QString("G1 Z%1 F%2").arg(*(in_handler.GetZSettings()+1),0, 'f', 3).arg(in_handler.GetFeedrate(),0,'d',3);
         }
 
         QList< QList<BasicPolygon*> > optimizedPoly;
@@ -698,8 +699,8 @@ void svgReader::generateGCode(const SettingsHandler& in_handler)
 
         foreach(QList<BasicPolygon*> list, optimizedPoly)
         {
-            gcode << QString("G1 Z%1 F%2").arg(curZ,0, 'f', 3).arg(in_handler.GetFeedrate(),0,'d',3);
             gcode << QString("G0 X%1 Y%2 F%3").arg(list.first()->getPolygon().at(0).x() > 0 ? list.first()->getPolygon().at(0).x() : 0 ,0, 'f', 3).arg(list.first()->getPolygon().at(0).y() > 0 ? list.first()->getPolygon().at(0).y() : 0,0, 'f', 3).arg(in_handler.GetFeedrate(),0,'d',3);
+            gcode << QString("G1 Z%1 F%2").arg(curZ,0, 'f', 3).arg(in_handler.GetFeedrate(),0,'d',3);
             gcode << QString("%1 %2%3").arg(in_handler.GetLaserOnOffCommand()[0]).arg(in_handler.GetLaserCmd()).arg(in_handler.GetMaxLaserPwr());
             foreach(BasicPolygon * poly , list)
             {
@@ -711,6 +712,7 @@ void svgReader::generateGCode(const SettingsHandler& in_handler)
                 }
             }
             gcode << QString("%1").arg(in_handler.GetLaserOnOffCommand()[1]);
+            gcode << QString("G1 Z%1 F%2").arg(*(in_handler.GetZSettings()+1),0, 'f', 3).arg(in_handler.GetFeedrate(),0,'d',3);
         }
 
 
@@ -726,6 +728,7 @@ void svgReader::generateGCode(const SettingsHandler& in_handler)
                 gcode << QString("G1 X%1 Y%2 F1800.000").arg(polygon[i].x() > 0 ? polygon[i].x() : 0,0, 'f', 3).arg(polygon[i].y() > 0 ? polygon[i].y() : 0,0, 'f', 3);
             }
             gcode << QString("%1").arg(in_handler.GetLaserOnOffCommand()[1]);
+            gcode << QString("G1 Z%1 F%2").arg(*(in_handler.GetZSettings()+1),0, 'f', 3).arg(in_handler.GetFeedrate(),0,'d',3);
         }
         curZ -= in_handler.GetResolution();
     }
